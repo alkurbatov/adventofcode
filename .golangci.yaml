@@ -1,0 +1,164 @@
+run:
+  deadline: 5m
+
+linters-settings:
+  dupl:
+    threshold: 100
+  errorlint:
+    errorf: true
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  exhaustive:
+    check-generated: false
+    default-signifies-exhaustive: false
+  fieldalignment:
+    suggest-new: true
+  funlen:
+    lines: 65
+    statements: 40
+  gocognit:
+    min-complexity: 15
+  gocyclo:
+    min-complexity: 10
+  goconst:
+    min-len: 2
+    min-occurrences: 2
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - experimental
+      - opinionated
+      - performance
+      - style
+    disabled-checks:
+      - dupImport
+      - importShadow
+      - unnecessaryBlock
+  gofumpt:
+    extra-rules: true
+  govet:
+    check-shadowing: true
+    fieldalignment: true
+  lll:
+    line-length: 100
+  misspell:
+    locale: US
+  nestif:
+    min-complexity: 4
+  nolintlint:
+    require-explanation: true
+    require-specific: true
+  revive:
+    rules:
+      - name: blank-imports
+      - name: context-as-argument
+      - name: context-keys-type
+      - name: dot-imports
+      - name: empty-block
+      - name: error-naming
+      - name: error-return
+      - name: error-strings
+      - name: errorf
+      - name: exported
+      - name: if-return
+      - name: increment-decrement
+      - name: indent-error-flow
+      - name: package-comments
+      - name: range
+      - name: receiver-naming
+      - name: redefines-builtin-id
+      - name: struct-tag
+      - name: superfluous-else
+      - name: time-naming
+      - name: unexported-return
+      - name: unreachable-code
+      - name: unused-parameter
+      - name: var-declaration
+      - name: var-naming
+
+linters:
+  disable-all: true
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - cyclop
+#    - deadcode
+    - depguard
+    - dogsled
+#    - dupl
+    - durationcheck
+    - errcheck
+    - errchkjson
+    - errname
+    - errorlint
+    - exhaustive
+#    - exhaustivestruct
+    - exportloopref
+    - forbidigo
+    - funlen
+#    - gci
+#    - gochecknoglobals
+#    - gochecknoinits
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godot
+    - godox
+    - goerr113
+    - gofmt
+    - gofumpt
+#    - goheader
+    - goimports
+#    - gomnd
+    - gomodguard
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - gosmopolitan
+    - govet
+    - grouper
+#    - ifshort
+#    - ireturn
+    - importas
+    - ineffassign
+    - interfacebloat
+    - lll
+    - makezero
+    - misspell
+    - nakedret
+    - nestif
+    - nilerr
+    - nilnil
+#    - nlreturn
+    - noctx
+    - nolintlint
+    - nosprintfhostport
+#    - paralleltest
+    - prealloc
+    - predeclared
+    - reassign
+    - revive
+#    - rowserrcheck
+#    - sqlclosecheck
+    - staticcheck
+#    - structcheck
+    - stylecheck
+    - tagalign
+    - testpackage
+    - thelper
+#    - tparallel
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - usestdlibvars
+#    - varcheck
+#    - wastedassign
+    - whitespace
+#    - wrapcheck
+    - wsl
+    - zerologlint
