@@ -45,33 +45,43 @@ func main() {
 	}
 	defer input.Close()
 
-	result := 0
+	var firstPartResult, secondPartResult int
 
 	// NB (alkurbatov): Becase the input contains strings like oneight, eighthree or sevenine
-	// and Golang does not provide negative lookahead, we have to try reversed approach.
-	firstDigit := regexp.MustCompile(`\d|one|two|three|four|five|six|seven|eight|nine`)
-	lastDigit := regexp.MustCompile(`\d|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin`)
+	// and Golang does not provide negative lookahead, we have to try 'reversed' approach.
+	digits := regexp.MustCompile(`\d`)
+	firstNumber := regexp.MustCompile(`\d|one|two|three|four|five|six|seven|eight|nine`)
+	lastNumber := regexp.MustCompile(`\d|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin`)
 
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		src := scanner.Text()
 
-		first := firstDigit.FindString(src)
-		if first == "" {
-			log.Printf("Failed to find first digit in input string: %s", src)
+		allDigits := digits.FindAllString(src, -1)
+		if len(allDigits) == 0 {
+			log.Printf("Failed to find all digits in input string: %s", src)
 			return
 		}
 
-		last := lastDigit.FindString(reverse(src))
-		if last == "" {
-			log.Printf("Failed to find last digit in input string: %s", src)
+		hiddenNumber := numsMap[allDigits[0]]*10 + numsMap[allDigits[len(allDigits)-1]]
+		firstPartResult += hiddenNumber
+		log.Printf("Part 1: %s -> %d", src, hiddenNumber)
+
+		firstNum := firstNumber.FindString(src)
+		if firstNum == "" {
+			log.Printf("Failed to find first number in input string: %s", src)
 			return
 		}
 
-		hiddenNumber := numsMap[first]*10 + numsMap[reverse(last)]
-		result += hiddenNumber
+		lastNum := lastNumber.FindString(reverse(src))
+		if lastNum == "" {
+			log.Printf("Failed to find last number in input string: %s", src)
+			return
+		}
 
-		log.Printf("%s -> %d", src, hiddenNumber)
+		hiddenNumber = numsMap[firstNum]*10 + numsMap[reverse(lastNum)]
+		secondPartResult += hiddenNumber
+		log.Printf("Part 2: %s -> %d", src, hiddenNumber)
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -79,5 +89,6 @@ func main() {
 		return
 	}
 
-	log.Printf("Result: %d", result)
+	log.Printf("Part 1 result: %d", firstPartResult)
+	log.Printf("Part 2 result: %d", secondPartResult)
 }
