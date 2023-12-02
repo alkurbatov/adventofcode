@@ -33,7 +33,7 @@ func extractGameID(src string) (int, error) {
 	return strconv.Atoi(raw[1])
 }
 
-func fewestPossible(src string, re *regexp.Regexp) int {
+func maxShown(src string, re *regexp.Regexp) int {
 	counts := re.FindAllStringSubmatch(src, -1)
 	if counts == nil {
 		return 0
@@ -72,13 +72,13 @@ func main() {
 	for scanner.Scan() {
 		src := scanner.Text()
 
-		fewerRed := fewestPossible(src, reds)
-		fewerBlue := fewestPossible(src, blues)
-		fewerGreen := fewestPossible(src, greens)
+		maxRedShown := maxShown(src, reds)
+		maxBlueShown := maxShown(src, blues)
+		maxGreenShown := maxShown(src, greens)
 
-		secondPartResult += fewerRed * fewerBlue * fewerGreen
+		secondPartResult += maxRedShown * maxBlueShown * maxGreenShown
 
-		if fewerRed > maxRed || fewerBlue > maxBlue || fewerGreen > maxGreen {
+		if maxRedShown > maxRed || maxBlueShown > maxBlue || maxGreenShown > maxGreen {
 			continue
 		}
 
