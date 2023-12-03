@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"errors"
 	"log"
 	"os"
 	"regexp"
@@ -15,23 +14,11 @@ const (
 	maxBlue  = 14
 )
 
-var ErrNoID = errors.New("game ID not found")
-
 var (
-	gameID = regexp.MustCompile(`Game (\d+):`)
 	blues  = regexp.MustCompile(` (\d+) blue`)
 	reds   = regexp.MustCompile(` (\d+) red`)
 	greens = regexp.MustCompile(` (\d+) green`)
 )
-
-func extractGameID(src string) (int, error) {
-	raw := gameID.FindStringSubmatch(src)
-	if len(raw) == 0 {
-		return 0, ErrNoID
-	}
-
-	return strconv.Atoi(raw[1])
-}
 
 func maxShown(src string, re *regexp.Regexp) int {
 	counts := re.FindAllStringSubmatch(src, -1)
@@ -39,7 +26,7 @@ func maxShown(src string, re *regexp.Regexp) int {
 		return 0
 	}
 
-	localMax := -1
+	var localMax int
 
 	for _, count := range counts {
 		for i := 1; i < len(count); i++ {
@@ -49,9 +36,7 @@ func maxShown(src string, re *regexp.Regexp) int {
 				return -1
 			}
 
-			if num > localMax {
-				localMax = num
-			}
+			localMax = max(localMax, num)
 		}
 	}
 
@@ -66,11 +51,12 @@ func main() {
 	}
 	defer input.Close()
 
-	var firstPartResult, secondPartResult int
+	var id, firstPartResult, secondPartResult int
 
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
 		src := scanner.Text()
+		id++
 
 		maxRedShown := maxShown(src, reds)
 		maxBlueShown := maxShown(src, blues)
@@ -80,12 +66,6 @@ func main() {
 
 		if maxRedShown > maxRed || maxBlueShown > maxBlue || maxGreenShown > maxGreen {
 			continue
-		}
-
-		id, err := extractGameID(src)
-		if err != nil {
-			log.Printf("Failed to extract game ID: %v", err)
-			return
 		}
 
 		firstPartResult += id
