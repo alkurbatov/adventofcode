@@ -97,7 +97,7 @@ linters:
     - exhaustive
 #    - exhaustivestruct
     - exportloopref
-    - forbidigo
+#    - forbidigo
     - funlen
 #    - gci
 #    - gochecknoglobals
