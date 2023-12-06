@@ -4,7 +4,7 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"log"
 	"os"
 	"sort"
 	"strconv"
@@ -150,7 +150,7 @@ func solveSecondPart(seeds []int, pipeline Pipeline) int {
 func main() {
 	input, err := os.Open("./2023/5/input.txt")
 	if err != nil {
-		fmt.Printf("Failed to open input.txt: %v", err)
+		log.Printf("Failed to open input.txt: %v", err)
 		return
 	}
 	defer input.Close()
@@ -158,30 +158,30 @@ func main() {
 	scanner := bufio.NewScanner(input)
 
 	if !scanner.Scan() {
-		fmt.Printf("Failed to scan seeds from input.txt: %v", scanner.Err())
+		log.Printf("Failed to scan seeds from input.txt: %v", scanner.Err())
 		return
 	}
 
 	seeds, err := readSeeds(scanner.Text())
 	if err != nil {
-		fmt.Printf("Failed to convert seed number to int: %v", err)
+		log.Printf("Failed to convert seed number to int: %v", err)
 		return
 	}
 
 	pipeline, err := readPipeline(scanner)
 	if err != nil {
-		fmt.Printf("Failed to read pipeline: %v", err)
+		log.Printf("Failed to read pipeline: %v", err)
 		return
 	}
 
 	if err := scanner.Err(); err != nil {
-		fmt.Printf("Failed to scan input.txt: %v", err)
+		log.Printf("Failed to scan input.txt: %v", err)
 		return
 	}
 
 	firstPartResult := solveFirstPart(seeds, pipeline)
-	fmt.Printf("Part 1 result: %d\n\n", firstPartResult)
+	log.Printf("Part 1 result: %d\n", firstPartResult)
 
 	secondPartResult := solveSecondPart(seeds, pipeline)
-	fmt.Printf("Part 2 result: %d\n", secondPartResult)
+	log.Printf("Part 2 result: %d", secondPartResult)
 }

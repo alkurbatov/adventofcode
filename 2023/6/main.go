@@ -4,7 +4,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -68,7 +67,7 @@ func findVictoriesCount(time, distance int) int {
 func main() {
 	input, err := os.Open("./2023/6/input.txt")
 	if err != nil {
-		fmt.Printf("Failed to open input.txt: %v", err)
+		log.Printf("Failed to open input.txt: %v", err)
 		return
 	}
 	defer input.Close()
@@ -84,7 +83,7 @@ func main() {
 
 		values, total, err := readInput(src)
 		if err != nil {
-			fmt.Printf("Failed to reed values from %s: %v", src, err)
+			log.Printf("Failed to reed values from %s: %v", src, err)
 			return
 		}
 
@@ -94,7 +93,7 @@ func main() {
 	}
 
 	if err := scanner.Err(); err != nil {
-		fmt.Printf("Failed to scan seeds from input.txt: %v", err)
+		log.Printf("Failed to scan seeds from input.txt: %v", err)
 		return
 	}
 
