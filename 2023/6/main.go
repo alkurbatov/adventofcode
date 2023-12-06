@@ -54,15 +54,15 @@ func findVictoryBorder(time, distance int, cmp func(int, int) bool) int {
 	return l
 }
 
-func findVictoryRange(time, distance int) (left, right int) {
-	left = findVictoryBorder(time, distance, func(l, r int) bool {
+func findVictoriesCount(time, distance int) int {
+	left := findVictoryBorder(time, distance, func(l, r int) bool {
 		return l > r
 	})
-	right = findVictoryBorder(time, distance, func(l, r int) bool {
+	right := findVictoryBorder(time, distance, func(l, r int) bool {
 		return l <= r
 	})
 
-	return left, right
+	return right - left
 }
 
 func main() {
@@ -99,18 +99,11 @@ func main() {
 	}
 
 	firstPartResult := 1
-
 	for i := 0; i < len(races[0]); i++ {
-		lBorder, rBorder := findVictoryRange(races[0][i], races[1][i])
-
-		variants := rBorder - lBorder
-		firstPartResult *= variants
+		firstPartResult *= findVictoriesCount(races[0][i], races[1][i])
 	}
-
 	log.Printf("Part 1 result: %d", firstPartResult)
 
-	lBorder, rBorder := findVictoryRange(totals[0], totals[1])
-	secondPartResult := rBorder - lBorder
-
+	secondPartResult := findVictoriesCount(totals[0], totals[1])
 	log.Printf("Part 2 result: %d", secondPartResult)
 }
