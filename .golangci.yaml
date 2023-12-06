@@ -76,6 +76,8 @@ linters-settings:
       - name: unused-parameter
       - name: var-declaration
       - name: var-naming
+  wsl:
+    allow-cuddle-declarations: true
 
 linters:
   disable-all: true
