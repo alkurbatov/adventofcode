@@ -8,14 +8,14 @@ import (
 	"os"
 )
 
-func main() {
-	input, err := os.Open("./YEAR/DAY/input.txt")
+func readInput(path string) ([]int, error) {
+	input, err := os.Open(path)
 	if err != nil {
-		log.Printf("Failed to open input.txt: %v", err)
-		return
+		return nil, err
 	}
 	defer input.Close()
 
+	output := make([]int, 0)
 	scanner := bufio.NewScanner(input)
 
 	for scanner.Scan() {
@@ -23,10 +23,17 @@ func main() {
 		log.Print(src)
 	}
 
-	if err := scanner.Err(); err != nil {
-		log.Printf("Failed to scan seeds from input.txt: %v", err)
+	return output, scanner.Err()
+}
+
+func main() {
+	input, err := readInput("./YEAR/DAY/input.txt")
+	if err != nil {
+		log.Printf("Failed to read data from input.txt: %v", err)
 		return
 	}
+
+	log.Print(input)
 
 	var firstPartResult, secondPartResult int
 
