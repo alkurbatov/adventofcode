@@ -12,7 +12,7 @@
 <!-- markdown-toc end -->
 
 # adventofcode
-Solutions for [Advent of Code](https://adventofcode.com/) puzzles.
+Solutions to [Advent of Code](https://adventofcode.com/) puzzles.
 
 ## Development
 ### Setup dev environment
