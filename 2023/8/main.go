@@ -9,6 +9,8 @@ import (
 	"os"
 	"regexp"
 	"strings"
+
+	"github.com/alkurbatov/adventofcode/internal/calculus"
 )
 
 var errNoNodes = errors.New("no nodes found")
@@ -85,28 +87,6 @@ func calcSteps(route []rune, from, to string, nodes map[string]Node) int {
 	}
 }
 
-// Find greatest common divisor (GCD) via Euclidean algorithm.
-func FindGCD(a, b int) int {
-	for b != 0 {
-		t := b
-		b = a % b
-		a = t
-	}
-
-	return a
-}
-
-// Find Least Common Multiple (LCM) via Greatest Common Divisor (GCD).
-func FindLCM(a, b int, values ...int) int {
-	result := a * b / FindGCD(a, b)
-
-	for i := 0; i < len(values); i++ {
-		result = FindLCM(result, values[i])
-	}
-
-	return result
-}
-
 func calcGhostSteps(route []rune, nodes map[string]Node) int {
 	steps := make([]int, 0)
 
@@ -118,7 +98,7 @@ func calcGhostSteps(route []rune, nodes map[string]Node) int {
 		steps = append(steps, calcSteps(route, from, "Z", nodes))
 	}
 
-	return FindLCM(steps[0], steps[1], steps...)
+	return calculus.FindLCM(steps...)
 }
 
 func main() {

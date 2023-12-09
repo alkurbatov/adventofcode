@@ -7,6 +7,8 @@ import (
 	"log"
 	"os"
 	"regexp"
+
+	"github.com/alkurbatov/adventofcode/internal/strmod"
 )
 
 var numsMap = map[string]int{
@@ -28,15 +30,6 @@ var numsMap = map[string]int{
 	"7":     7,
 	"8":     8,
 	"9":     9,
-}
-
-func reverse(s string) string {
-	rns := []rune(s)
-	for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
-		rns[i], rns[j] = rns[j], rns[i]
-	}
-
-	return string(rns)
 }
 
 func main() {
@@ -75,13 +68,13 @@ func main() {
 			return
 		}
 
-		lastNum := lastNumber.FindString(reverse(src))
+		lastNum := lastNumber.FindString(strmod.Reverse(src))
 		if lastNum == "" {
 			log.Printf("Failed to find last number in input string: %s", src)
 			return
 		}
 
-		hiddenNumber = numsMap[firstNum]*10 + numsMap[reverse(lastNum)]
+		hiddenNumber = numsMap[firstNum]*10 + numsMap[strmod.Reverse(lastNum)]
 		secondPartResult += hiddenNumber
 		log.Printf("Part 2: %s -> %d", src, hiddenNumber)
 	}
