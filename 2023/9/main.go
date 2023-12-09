@@ -21,7 +21,7 @@ func readInput(path string) ([][]int, error) {
 	result := make([][]int, 0)
 
 	for scanner.Scan() {
-		sequence, err := parsers.ReadNumbers(scanner.Text())
+		sequence, err := parsers.ReadNumbers(scanner.Text(), " ")
 		if err != nil {
 			return nil, err
 		}
